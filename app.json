@@ -11,7 +11,7 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.onvia.health",
       "infoPlist": {
-        "NSLocationWhenInUseUsageDescription": "ONVIA usa tu ubicaci\u00f3n para mostrar servicios de salud cercanos."
+        "NSLocationWhenInUseUsageDescription": "ONVIA usa tu ubicación para mostrar servicios de salud cercanos."
       }
     },
     "android": {
@@ -26,7 +26,20 @@
       "bundler": "metro",
       "output": "single"
     },
-    "plugins": ["expo-font", "expo-location", "expo-router"],
+    "plugins": [
+      "expo-font",
+      "expo-location",
+      "expo-router",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "minSdkVersion": 29
+          }
+        }
+      ],
+      "@qvac/sdk/expo-plugin"
+    ],
     "scheme": "onvia",
     "experiments": {
       "typedRoutes": true
