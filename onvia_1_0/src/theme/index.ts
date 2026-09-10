@@ -1,0 +1,25 @@
+export const theme = {
+  colors: {
+    background: "#FAF8F1",
+    surface: "#FFFFFF",
+    ink: "#171717",
+    muted: "#595B61",
+    primary: "#1932DB",
+    primaryDark: "#1226AB",
+    sand: "#E5D7BB",
+    line: "#DDDCD5",
+    blueLight: "#EAEFFD",
+    teal: "#167468",
+    tealLight: "#E5F1ED",
+    error: "#B03239",
+    errorLight: "#FBECEE",
+  },
+  fonts: {
+    title: "BricolageGrotesque_700Bold",
+    body: "Inter_400Regular",
+    medium: "Inter_600SemiBold",
+    bold: "Inter_700Bold",
+  },
+  space: [4, 8, 12, 16, 24, 32, 48],
+  radius: { control: 12, card: 16 },
+};

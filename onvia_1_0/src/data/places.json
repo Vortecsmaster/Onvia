@@ -1,0 +1,130 @@
+[
+  {
+    "id": "146820184",
+    "name": "Hospital Punta Pacífica",
+    "type": "hospital",
+    "latitude": 8.9820165,
+    "longitude": -79.5102552,
+    "source": "https://www.openstreetmap.org/way/146820184"
+  },
+  {
+    "id": "1290651149",
+    "name": "Hospital Nacional",
+    "type": "hospital",
+    "latitude": 8.9726097,
+    "longitude": -79.5334975,
+    "source": "https://www.openstreetmap.org/way/1290651149"
+  },
+  {
+    "id": "1287160365",
+    "name": "Clínica Hospital San Fernando",
+    "type": "hospital",
+    "latitude": 9.003603,
+    "longitude": -79.5164317,
+    "source": "https://www.openstreetmap.org/way/1287160365"
+  },
+  {
+    "id": "382719450",
+    "name": "Hospital Santa Fe",
+    "type": "hospital",
+    "latitude": 8.9759388,
+    "longitude": -79.5383482,
+    "source": "https://www.openstreetmap.org/way/382719450"
+  },
+  {
+    "id": "1287207332",
+    "name": "Hospital Paitilla",
+    "type": "hospital",
+    "latitude": 8.9785952,
+    "longitude": -79.5177537,
+    "source": "https://www.openstreetmap.org/way/1287207332"
+  },
+  {
+    "id": "834009785",
+    "name": "Hospital Santo Tomás",
+    "type": "hospital",
+    "latitude": 8.9698956,
+    "longitude": -79.5323037,
+    "source": "https://www.openstreetmap.org/way/834009785"
+  },
+  {
+    "id": "1553065143",
+    "name": "The Panama Clinic",
+    "type": "hospital",
+    "latitude": 8.9785228,
+    "longitude": -79.511463,
+    "source": "https://www.openstreetmap.org/way/1553065143"
+  },
+  {
+    "id": "858186956",
+    "name": "Metro",
+    "type": "pharmacy",
+    "latitude": 8.9890864,
+    "longitude": -79.5281525,
+    "source": "https://www.openstreetmap.org/node/858186956"
+  },
+  {
+    "id": "12472082668",
+    "name": "Metro Plus",
+    "type": "pharmacy",
+    "latitude": 8.9880985,
+    "longitude": -79.5233319,
+    "source": "https://www.openstreetmap.org/node/12472082668"
+  },
+  {
+    "id": "3897340803",
+    "name": "Metro",
+    "type": "pharmacy",
+    "latitude": 8.9897727,
+    "longitude": -79.5047646,
+    "source": "https://www.openstreetmap.org/node/3897340803"
+  },
+  {
+    "id": "874794271",
+    "name": "Arrocha",
+    "type": "pharmacy",
+    "latitude": 8.9882409,
+    "longitude": -79.5287028,
+    "source": "https://www.openstreetmap.org/node/874794271"
+  },
+  {
+    "id": "11489379430",
+    "name": "Farmacias Arrocha Plaza 58",
+    "type": "pharmacy",
+    "latitude": 8.9859064,
+    "longitude": -79.5178535,
+    "source": "https://www.openstreetmap.org/node/11489379430"
+  },
+  {
+    "id": "386255898",
+    "name": "Arrocha - 12 de Octubre",
+    "type": "pharmacy",
+    "latitude": 9.011874,
+    "longitude": -79.5111669,
+    "source": "https://www.openstreetmap.org/way/386255898"
+  },
+  {
+    "id": "385045947",
+    "name": "Farmacia El Javillo",
+    "type": "pharmacy",
+    "latitude": 8.9778317,
+    "longitude": -79.5126853,
+    "source": "https://www.openstreetmap.org/way/385045947"
+  },
+  {
+    "id": "971482497",
+    "name": "El Javillo",
+    "type": "pharmacy",
+    "latitude": 8.9937156,
+    "longitude": -79.5336742,
+    "source": "https://www.openstreetmap.org/node/971482497"
+  },
+  {
+    "id": "10274643632",
+    "name": "FarmaValue",
+    "type": "pharmacy",
+    "latitude": 8.9919065,
+    "longitude": -79.5089507,
+    "source": "https://www.openstreetmap.org/node/10274643632"
+  }
+]

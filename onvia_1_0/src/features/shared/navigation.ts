@@ -1,0 +1,5 @@
+import { Href, Router } from "expo-router";
+export function backOrReplace(router: Router, fallback: Href) {
+  if (router.canGoBack()) router.back();
+  else router.replace(fallback);
+}

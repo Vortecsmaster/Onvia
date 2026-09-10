@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "ONVIA",
+    "slug": "onvia",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.onvia.health",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "ONVIA usa tu ubicaci\u00f3n para mostrar servicios de salud cercanos."
+      }
+    },
+    "android": {
+      "package": "com.onvia.health",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#FAF8F1"
+      }
+    },
+    "web": {
+      "favicon": "./assets/icon.png",
+      "bundler": "metro",
+      "output": "single"
+    },
+    "plugins": ["expo-font", "expo-location", "expo-router"],
+    "scheme": "onvia",
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
