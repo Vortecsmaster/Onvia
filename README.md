@@ -16,7 +16,7 @@
 [![QVAC](https://img.shields.io/badge/QVAC-SDK-6D28D9?style=for-the-badge)](https://github.com/tetherto/qvac)
 [![License](https://img.shields.io/badge/license-GPL--3.0-2F855A?style=for-the-badge)](LICENSE)
 
-[▶ Ver demo](https://youtu.be/J3gRfPEGxGw?si=gu2BiskeHpbBh7uA) ·
+[▶ Ver video](https://youtu.be/J3gRfPEGxGw?si=gu2BiskeHpbBh7uA) ·
 [Características](#-características) ·
 [Cómo funciona](#-cómo-funciona) ·
 [Empezar](#-empezar) ·
@@ -26,9 +26,6 @@
 
 ---
 
-<p align="center">
-  <img src="docs/readme/open-graph-light-1200x630.png" alt="ONVIA — Tu salud. Tu IA. Tus datos." width="900">
-</p>
 
 ## 🩺 Sobre ONVIA
 
@@ -40,7 +37,7 @@ La idea central es simple:
 
 > **El teléfono no es solo la interfaz: es la frontera privada de cómputo.**
 
-ONVIA fue desarrollado como prototipo para el **Decentralized AI Hackathon — ISD Summit Panamá 2026**.
+ONVIA fue desarrollado como prototipo para el **Decentralized AI Hackathon — [ISD Summit](https://isdsummit.com/) Panamá 2026**.
 
 ---
 
@@ -60,27 +57,8 @@ ONVIA fue desarrollado como prototipo para el **Decentralized AI Hackathon — I
 ## 🎬 Demo
 
 **Video oficial del hackathon:**  
-▶ **[ONVIA — Demo](https://youtu.be/J3gRfPEGxGw?si=gu2BiskeHpbBh7uA)**
+▶ **[ONVIA](https://youtu.be/J3gRfPEGxGw?si=gu2BiskeHpbBh7uA)**
 
-Flujo principal demostrado:
-
-```text
-Abrir ONVIA
-    ↓
-Preparar los modelos locales
-    ↓
-Crear / consultar el expediente personal
-    ↓
-Escribir o dictar una pregunta
-    ↓
-Whisper transcribe localmente
-    ↓
-ONVIA construye el contexto del usuario
-    ↓
-MedPsy responde mediante QVAC
-    ↓
-El usuario lee o escucha la respuesta
-```
 
 ---
 
@@ -132,7 +110,6 @@ La aplicación puede utilizar red para funciones **no relacionadas con inferenci
 | [Expo Router](https://github.com/expo/expo/tree/main/packages/expo-router) | Navegación |
 | [TypeScript](https://github.com/microsoft/TypeScript) | Lenguaje principal |
 | [QVAC](https://github.com/tetherto/qvac) | Runtime de inferencia local |
-| [QVAC Examples](https://github.com/tetherto/qvac-examples) | Referencia pública de integración |
 | [OpenAI Whisper](https://github.com/openai/whisper) | Tecnología/modelo de reconocimiento de voz, utilizado mediante QVAC |
 | [MapLibre React Native](https://github.com/maplibre/maplibre-react-native) | Mapas |
 | [Expo SQLite](https://github.com/expo/expo/tree/main/packages/expo-sqlite) | Persistencia local |
@@ -144,9 +121,9 @@ Las versiones exactas utilizadas por el build se encuentran en [`package.json`](
 
 | Capacidad | Modelo | Ejecución |
 | --- | --- | --- |
-| Asistente de salud | **MedPsy 1.7B** | QVAC · on-device |
-| Voz a texto | **Whisper Spanish Tiny** | QVAC · on-device |
-| Texto a voz | **Supertonic Multilingual** | QVAC · on-device |
+| Asistente de salud | **MedPsy 1.7B** |
+| Voz a texto | **Whisper Spanish Tiny** |
+| Texto a voz | **Supertonic Multilingual** |
 
 ---
 
@@ -169,7 +146,7 @@ Para ejecutar ONVIA desde código fuente se necesita:
 ### Instalación
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/Vortecsmaster/Onvia.git
 cd Onvia
 npm install
 ```
@@ -248,15 +225,8 @@ Route → Screen → Controller → Contract → Adapter
 
 ## 🏁 Declaración del hackathon
 
-ONVIA participa en el **Decentralized AI Hackathon — ISD Summit, Panamá, 9–11 de septiembre de 2026**.
+ONVIA participa en el **Decentralized AI Hackathon — [ISD Summit](https://isdsummit.com/), Panamá, 9–11 de septiembre de 2026**.
 
-Las reglas de la competencia exigen que:
-
-- toda solución utilice **QVAC**;
-- la inferencia se ejecute **en el dispositivo o entre pares**, nunca en una API de IA en la nube;
-- cualquier **base preexistente** se declare en el README;
-- el repositorio sea accesible al jurado;
-- el video de entrega sea accesible y no exceda cinco minutos.
 
 ### Cumplimiento técnico
 
@@ -403,8 +373,11 @@ ONVIA existe gracias al trabajo de numerosos proyectos y comunidades open source
 
 <div align="center">
 
-**ONVIA — Tu salud. Tu IA. Tus datos.**
+<p align="center">
+  <img src="docs/readme/open-graph-light-1200x630.png" alt="ONVIA — Tu salud. Tu IA. Tus datos." width="900">
+</p>
 
-[▶ Ver demo](https://youtu.be/J3gRfPEGxGw?si=gu2BiskeHpbBh7uA)
+
+[▶ Ver video](https://youtu.be/J3gRfPEGxGw?si=gu2BiskeHpbBh7uA)
 
 </div>
