@@ -20,13 +20,20 @@ export function AssistantView(c: ReturnType<typeof useAssistantController>) {
         <Heading size={24}>
           {t("assistant.name", { name: appConfig.name })}
         </Heading>
-        <MessageList messages={c.messages} busy={c.busy} />
+        <MessageList
+          messages={c.messages}
+          busy={c.busy}
+          onSpeak={c.speak}
+          speaking={c.speaking}
+        />
         {c.error && <ErrorState message={c.error} />}
+        {c.speakError && <ErrorState message={c.speakError} />}
         <MessageComposer
           value={c.input}
           onChange={c.setInput}
           onSend={c.send}
-          onSuggest={c.suggest}
+          onDictate={c.dictate}
+          dictating={c.dictating}
           busy={c.busy}
         />
         <View

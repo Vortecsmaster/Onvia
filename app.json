@@ -2,7 +2,7 @@
   "expo": {
     "name": "ONVIA",
     "slug": "onvia",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -11,15 +11,28 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.onvia.health",
       "infoPlist": {
-        "NSLocationWhenInUseUsageDescription": "ONVIA usa tu ubicación para mostrar servicios de salud cercanos."
+        "NSLocationWhenInUseUsageDescription": "ONVIA usa tu ubicación para mostrar servicios de salud cercanos.",
+        "NSMicrophoneUsageDescription": "ONVIA usa el micrófono para dictar notas y hablar con el asistente en este dispositivo."
       }
     },
     "android": {
       "package": "com.onvia.health",
+      "versionCode": 2,
+      "allowBackup": false,
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#FAF8F1"
-      }
+      },
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "RECORD_AUDIO"
+      ],
+      "blockedPermissions": [
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "SYSTEM_ALERT_WINDOW"
+      ]
     },
     "web": {
       "favicon": "./assets/icon.png",
@@ -30,15 +43,32 @@
       "expo-font",
       "expo-location",
       "expo-router",
+      "@qvac/sdk/expo-plugin",
       [
         "expo-build-properties",
         {
           "android": {
-            "minSdkVersion": 29
+            "minSdkVersion": 29,
+            "enableMinifyInReleaseBuilds": false,
+            "enableShrinkResourcesInReleaseBuilds": false,
+            "enableProguardInReleaseBuilds": false,
+            "useLegacyPackaging": true
           }
         }
       ],
-      "@qvac/sdk/expo-plugin"
+      "expo-sqlite",
+      "expo-audio",
+      "expo-asset",
+      [
+        "@maplibre/maplibre-react-native",
+        {
+          "android": {
+            "locationEngine": "default"
+          }
+        }
+      ],
+      "./plugins/withProguardKeep",
+      "./plugins/withBareKitEarlyLoad"
     ],
     "scheme": "onvia",
     "experiments": {

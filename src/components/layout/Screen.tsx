@@ -26,8 +26,8 @@ export function Screen({
       onRefresh={onRefresh}
       refreshing={refreshing}
       contentContainerStyle={{
-        padding: wide ? (compact ? 28 : 40) : compact ? 16 : 22,
-        paddingBottom: compact ? 20 : 32,
+        padding: wide ? (compact ? 20 : 40) : compact ? 12 : 22,
+        paddingBottom: compact ? 12 : 32,
       }}
     >
       <View
@@ -35,7 +35,7 @@ export function Screen({
           width: "100%",
           maxWidth: 1080,
           alignSelf: "center",
-          gap: compact ? 16 : 26,
+          gap: compact ? 10 : 26,
         }}
       >
         {children}

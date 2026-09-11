@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import { View, Animated } from "react-native";
+import React from "react";
+import { View } from "react-native";
 import { Screen } from "../../components/layout/Screen";
 import { Badge } from "../../components/primitives/Badge";
 import { Heading } from "../../components/primitives/Heading";
@@ -13,25 +13,6 @@ import { t } from "../../locales";
 export function PreparationView(
   c: ReturnType<typeof usePreparationController>,
 ) {
-  const pulse = useRef(new Animated.Value(0)).current;
-  useEffect(() => {
-    const animation = Animated.loop(
-      Animated.sequence([
-        Animated.timing(pulse, {
-          toValue: -6,
-          duration: 1800,
-          useNativeDriver: true,
-        }),
-        Animated.timing(pulse, {
-          toValue: 0,
-          duration: 1800,
-          useNativeDriver: true,
-        }),
-      ]),
-    );
-    animation.start();
-    return () => animation.stop();
-  }, [pulse]);
   return (
     <Screen compact>
       <View
@@ -39,30 +20,29 @@ export function PreparationView(
           width: "100%",
           maxWidth: 470,
           alignSelf: "center",
-          gap: 16,
+          gap: 10,
         }}
       >
-        <View style={{ gap: 10 }}>
+        <View style={{ gap: 6 }}>
           <Badge label={t("preparation.step")} />
-          <Heading size={30}>{t("preparation.title")}</Heading>
-          <Text muted size={14}>
+          <Heading size={22}>{t("preparation.title")}</Heading>
+          <Text muted size={13}>
             {t("preparation.body")}
           </Text>
         </View>
-        <Animated.View
+        <View
           style={{
             alignSelf: "center",
-            transform: [{ translateY: pulse }],
-            width: 112,
-            height: 112,
-            borderRadius: 56,
+            width: 64,
+            height: 64,
+            borderRadius: 32,
             backgroundColor: "#EFEEE7",
             alignItems: "center",
             justifyContent: "center",
           }}
         >
-          <BrandMark symbol width={72} />
-        </Animated.View>
+          <BrandMark symbol width={40} />
+        </View>
         <ModelCard models={c.models} busy={c.busy} complete={c.complete} />
         {c.error && <ErrorState message={c.error} />}
         <Button
@@ -77,7 +57,7 @@ export function PreparationView(
           onPress={c.complete ? c.continue : c.start}
           icon={c.complete ? "arrow-right" : "arrow-down"}
         />
-        <Text muted size={12} style={{ textAlign: "center" }}>
+        <Text muted size={11} style={{ textAlign: "center" }}>
           {t("preparation.footer")}
         </Text>
       </View>

@@ -26,7 +26,7 @@ export function Input({
   value,
   onChangeText,
   multiline,
-  minHeight = 52,
+  minHeight = 44,
   ...props
 }: InputProps) {
   const [focused, setFocused] = useState(false);

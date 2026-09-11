@@ -31,11 +31,12 @@ export function Select<T extends string>({
         disabled={field.disabled || field.readOnly}
         onPress={() => setOpen(!open)}
         style={{
-          minHeight: 52,
+          minHeight: 44,
           borderWidth: 1,
           borderColor: field.error ? theme.colors.error : "#92928B",
           borderRadius: 12,
-          padding: 14,
+          paddingHorizontal: 12,
+          paddingVertical: 8,
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",

@@ -16,9 +16,9 @@ export function TeamCard({
   team: string[];
 }) {
   return (
-    <Card style={{ alignItems: "center", padding: 20, gap: 14 }}>
-      <BrandMark width={168} />
-      <Heading size={22} style={{ textAlign: "center" }}>
+    <Card style={{ alignItems: "center", padding: 14, gap: 8 }}>
+      <BrandMark width={120} />
+      <Heading size={20} style={{ textAlign: "center" }}>
         {t("about.tagline")}
       </Heading>
       <Text muted style={{ textAlign: "center", maxWidth: 490 }}>

@@ -5,6 +5,7 @@ import {
   timeParts,
   formatTime,
   inRange,
+  toLocalISODate,
 } from "../src/domain/dateTime";
 import {
   conditionError,
@@ -22,8 +23,10 @@ import {
 import places from "../src/data/places.json";
 test("calendar rejects impossible dates and handles leap years", () => {
   expect(validDate("2024-02-29")).toBe(true);
-  for (const s of ["2025-02-29", "2026-04-31", "", "2026-13-01"])
+  for (const s of ["2025-02-29", "2026-04-31", "", "2026-13-01", "1969-12-31"])
     expect(validDate(s)).toBe(false);
+  expect(toLocalISODate(new Date(2026, 8, 10, 23, 30))).toBe("2026-09-10");
+  expect(toLocalISODate(new Date(0))).toBe("");
 });
 test("time rejects invalid minutes and hours", () => {
   for (const s of ["24:00", "12:60", "-1:00", "1:00", ""])

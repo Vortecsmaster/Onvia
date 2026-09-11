@@ -81,7 +81,7 @@ test("seeds only fresh storage and preserves current empty collections", async (
   const { storage } = memory();
   const repo = createWorkspaceRepository(storage);
   const fresh = await repo.load();
-  expect(fresh.conditions).toHaveLength(10);
+  expect(fresh.conditions).toHaveLength(0);
   await repo.save({ ...fresh, conditions: [], medications: [], history: [] });
   const result = await repo.load();
   expect(result.conditions).toEqual([]);

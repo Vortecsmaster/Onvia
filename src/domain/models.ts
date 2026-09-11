@@ -10,7 +10,8 @@ export interface Condition {
   diagnosisDate: string;
 }
 export type Treatment =
-  { lifelong: true } | { lifelong: false; startDate: string; endDate: string };
+  | { lifelong: true }
+  | { lifelong: false; startDate: string; endDate: string };
 export interface Medication {
   id: string;
   name: string;
@@ -40,6 +41,7 @@ export interface Workspace {
   version: 2;
   profile: Profile | null;
   prepared: boolean;
+  termsAccepted: boolean;
   conditions: Condition[];
   medications: Medication[];
   history: ClinicalEntry[];
@@ -55,7 +57,14 @@ export interface LocalDateTime {
   date: string;
   time: string;
 }
+export type ModelId = "medpsy" | "whisper" | "voice";
 export interface ModelProgress {
-  id: "medpsy" | "whisper";
+  id: ModelId;
   progress: number;
+}
+export interface ClinicalContext {
+  profile: Profile | null;
+  conditions: Condition[];
+  medications: Medication[];
+  history: ClinicalEntry[];
 }

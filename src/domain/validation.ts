@@ -48,6 +48,7 @@ export function assertWorkspace(value: unknown): asserts value is Workspace {
     !w ||
     w.version !== 2 ||
     typeof w.prepared !== "boolean" ||
+    typeof w.termsAccepted !== "boolean" ||
     (w.profile !== null &&
       (!w.profile ||
         typeof w.profile.name !== "string" ||

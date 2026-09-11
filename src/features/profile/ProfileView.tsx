@@ -34,13 +34,13 @@ export function ProfileView(
           <Text muted size={10} weight="medium" style={{ letterSpacing: 1 }}>
             {t("profile.eyebrow")}
           </Text>
-          <Heading size={wide ? 34 : 26} style={{ marginTop: 4 }}>
+          <Heading size={wide ? 34 : 22} style={{ marginTop: 2 }}>
             {t("profile.greeting", { name: c.profile.name.split(" ")[0] })} ✳
           </Heading>
-          <Text muted size={14} style={{ marginTop: 4 }}>
+          <Text muted size={13} style={{ marginTop: 2 }}>
             {t("profile.body")}
           </Text>
-          <Text muted size={12} style={{ marginTop: 4 }}>
+          <Text muted size={12} style={{ marginTop: 2 }}>
             {t("profile.summary", {
               age: c.profile.age,
               sex: sexOptions().find((o) => o.value === c.profile.sex)!.label,

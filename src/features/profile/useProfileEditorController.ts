@@ -37,7 +37,11 @@ export function useProfileEditorController(onboarding = false) {
     save: () =>
       task.run(async (signal) => {
         if (!valid || (onboarding && !consent)) return;
-        await commit((w) => ({ ...w, profile }));
+        await commit((w) => ({
+          ...w,
+          profile,
+          termsAccepted: onboarding ? true : w.termsAccepted,
+        }));
         if (!signal.aborted) {
           notify(t("common.saved"));
           router.replace("/");

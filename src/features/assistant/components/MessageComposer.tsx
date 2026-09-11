@@ -9,13 +9,15 @@ export function MessageComposer({
   value,
   onChange,
   onSend,
-  onSuggest,
+  onDictate,
+  dictating,
   busy,
 }: {
   value: string;
   onChange: (text: string) => void;
   onSend: (text?: string) => void;
-  onSuggest: () => void;
+  onDictate: () => void;
+  dictating: boolean;
   busy: boolean;
 }) {
   return (
@@ -28,19 +30,22 @@ export function MessageComposer({
       }}
     >
       <View style={{ flexDirection: "row", gap: 8 }}>
-        {(["assistant.consultation", "assistant.medications"] as const).map(
-          (key) => (
-            <Button
-              key={key}
-              label={t(key)}
-              variant="secondary"
-              compact
-              disabled={busy}
-              onPress={() => onSend(t(key))}
-              style={{ flex: 1 }}
-            />
-          ),
-        )}
+        {(
+          [
+            ["assistant.consultation", "assistant.content.consultation"],
+            ["assistant.medications", "assistant.content.medications"],
+          ] as const
+        ).map(([label, content]) => (
+          <Button
+            key={label}
+            label={t(label)}
+            variant="secondary"
+            compact
+            disabled={busy}
+            onPress={() => onSend(t(content))}
+            style={{ flex: 1 }}
+          />
+        ))}
       </View>
       <View style={{ flexDirection: "row", gap: 8, alignItems: "flex-end" }}>
         <View style={{ flex: 1 }}>
@@ -53,16 +58,17 @@ export function MessageComposer({
           />
         </View>
         <IconButton
-          label={t("assistant.dictate")}
-          icon="mic"
+          label={dictating ? t("assistant.stopDictate") : t("assistant.dictate")}
+          icon={dictating ? "square" : "mic"}
           disabled={busy}
-          onPress={onSuggest}
+          filled={dictating}
+          onPress={onDictate}
         />
         <IconButton
           label={t("assistant.send")}
           icon="arrow-up"
           filled
-          disabled={!value.trim() || busy}
+          disabled={!value.trim() || busy || dictating}
           onPress={() => onSend()}
         />
       </View>

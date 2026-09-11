@@ -49,14 +49,13 @@ export function NearbyView(c: ReturnType<typeof useNearbyController>) {
         />
       </View>
       <Text muted size={12}>
-        {c.locationLabel} · {t("nearby.internet")}
+        {c.locationLabel}
+      </Text>
+      <Text muted size={12}>
+        {t("nearby.internet")}
       </Text>
       {c.error && <ErrorState message={c.error} />}
-      <PlacesMap
-        items={c.items}
-        center={c.center}
-        onDirections={c.directions}
-      />
+      <PlacesMap items={c.items} center={c.center} onSelect={c.select} />
       <Section
         title={t("nearby.list")}
         action={
@@ -74,7 +73,6 @@ export function NearbyView(c: ReturnType<typeof useNearbyController>) {
         place={c.selected}
         onClose={() => c.select(null)}
         onDirections={c.directions}
-        busy={c.busy}
       />
     </Screen>
   );

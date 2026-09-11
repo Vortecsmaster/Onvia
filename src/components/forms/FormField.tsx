@@ -20,7 +20,7 @@ export function FormField({
   children,
 }: Omit<FieldProps, "label"> & { label?: string; children: React.ReactNode }) {
   return (
-    <View style={{ gap: 8 }}>
+    <View style={{ gap: 4 }}>
       {label ? (
         <Text size={13} weight="medium">
           {label}

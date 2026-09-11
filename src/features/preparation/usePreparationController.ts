@@ -12,6 +12,7 @@ export function usePreparationController() {
   const [models, setModels] = useState<ModelProgress[]>([
     { id: "medpsy", progress: value?.prepared ? 100 : 0 },
     { id: "whisper", progress: value?.prepared ? 100 : 0 },
+    { id: "voice", progress: value?.prepared ? 100 : 0 },
   ]);
   return {
     ...task,

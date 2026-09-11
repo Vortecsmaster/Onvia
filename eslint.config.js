@@ -11,6 +11,8 @@ module.exports = defineConfig([
       "android/**",
       "ios/**",
       "release/**",
+      "__MACOSX/**",
+      "plugins/**",
     ],
   },
   {

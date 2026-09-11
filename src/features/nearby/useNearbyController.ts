@@ -41,13 +41,9 @@ export function useNearbyController() {
           );
         }
       }),
-    directions: (place: Place) =>
-      task.run(async () => {
-        await places.openDirections(place);
-      }),
-    source: (place: Place) =>
-      task.run(async () => {
-        await places.openSource(place);
-      }),
+    directions: (place: Place) => {
+      setCenter([place.latitude, place.longitude]);
+      setSelected(place);
+    },
   };
 }

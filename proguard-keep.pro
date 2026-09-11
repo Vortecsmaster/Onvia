@@ -1,0 +1,11 @@
+-keep class com.facebook.react.** { *; }
+-keep class com.facebook.hermes.** { *; }
+-keep class com.facebook.jni.** { *; }
+-keep class com.facebook.soloader.** { *; }
+-keep class com.facebook.react.turbomodule.** { *; }
+-keep class expo.modules.** { *; }
+-keep class to.holepunch.** { *; }
+-keep class org.maplibre.** { *; }
+-keep class com.onvia.health.** { *; }
+-dontwarn com.facebook.react.**
+-dontwarn expo.modules.**

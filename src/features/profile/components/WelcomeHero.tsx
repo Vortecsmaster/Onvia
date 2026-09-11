@@ -16,15 +16,15 @@ export function WelcomeHero({ onPress }: { onPress: () => void }) {
       end={{ x: 1, y: 1 }}
       style={{
         borderRadius: 20,
-        padding: wide ? 24 : 16,
-        minHeight: wide ? 220 : 168,
+        padding: wide ? 24 : 12,
+        minHeight: wide ? 220 : 132,
         flexDirection: "row",
         overflow: "hidden",
       }}
     >
       <View style={{ flex: 1, gap: 8 }}>
         <Badge label={t("profile.heroLabel")} background="#FFFFFFAA" />
-        <Heading size={wide ? 30 : 24} style={{ maxWidth: 450 }}>
+        <Heading size={wide ? 30 : 20} style={{ maxWidth: 450 }}>
           {t("profile.heroTitle")}
         </Heading>
         <Text muted size={14} style={{ maxWidth: 390 }}>

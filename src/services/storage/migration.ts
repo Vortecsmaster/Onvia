@@ -27,6 +27,7 @@ export function migrateLegacy(raw: string): Workspace {
   const value: Workspace = {
     version: 2,
     prepared: true,
+    termsAccepted: true,
     profile: {
       name: old.profile.name,
       age: Number(old.profile.age),

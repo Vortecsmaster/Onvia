@@ -1,4 +1,5 @@
 export * from "./Checkbox";
+export * from "./DictationField";
 export * from "./DatePicker";
 export * from "./DateTimePicker";
 export * from "./FormField";

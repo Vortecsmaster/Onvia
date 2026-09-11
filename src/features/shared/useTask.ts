@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { t, TextKey } from "../../locales";
+import { isTextKey, t, TextKey } from "../../locales";
 // A controller-scoped task prevents duplicate requests and ignores stale completions.
 export function useTask() {
   const [busy, setBusy] = useState(false),
@@ -25,9 +25,14 @@ export function useTask() {
       setError("");
       try {
         await work(controller.signal);
-      } catch {
-        if (mounted.current && !controller.signal.aborted)
-          setError(t(errorKey));
+      } catch (error) {
+        if (mounted.current && !controller.signal.aborted) {
+          const key =
+            error instanceof Error && isTextKey(error.message)
+              ? error.message
+              : errorKey;
+          setError(t(key));
+        }
       } finally {
         if (active.current === controller) active.current = null;
         if (mounted.current) setBusy(false);

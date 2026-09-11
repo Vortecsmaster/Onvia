@@ -8,12 +8,10 @@ export function PlaceDetails({
   place,
   onClose,
   onDirections,
-  busy,
 }: {
   place: Place | null;
   onClose: () => void;
   onDirections: (p: Place) => void;
-  busy: boolean;
 }) {
   return (
     <ModalSheet visible={!!place} title={place?.name || ""} onClose={onClose}>
@@ -25,7 +23,6 @@ export function PlaceDetails({
           <Button
             label={t("nearby.destination")}
             icon="navigation"
-            disabled={busy}
             onPress={() => onDirections(place)}
           />
         </>

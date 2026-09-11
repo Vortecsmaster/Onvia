@@ -35,6 +35,9 @@ android/local.properties
 *.apk
 *.aab
 
+# Local installable binaries (too large for GitHub)
+release/
+
 # iOS
 ios/Pods/
 ios/build/

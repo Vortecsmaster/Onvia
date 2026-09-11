@@ -20,6 +20,7 @@ jest.mock("../src/providers/FeedbackProvider", () => ({
 jest.mock("expo-router", () => ({
   useRouter: () => ({ replace: mockReplace, canGoBack: () => false }),
   useLocalSearchParams: () => ({}),
+  usePathname: () => "/conditions/new",
 }));
 const wrapper = ({ children }: { children: React.ReactNode }) => (
   <WorkspaceProvider>{children}</WorkspaceProvider>
@@ -30,6 +31,9 @@ beforeEach(() => {
     ...createWorkspace(),
     profile: { name: "Ana", age: 34, sex: "female" },
     prepared: true,
+    conditions: [
+      { id: "c1", name: "Asma", diagnosisDate: "2025-01-12" },
+    ],
   });
   mockRepository.save.mockResolvedValue(undefined);
 });
@@ -49,7 +53,7 @@ test("workspace publishes changes only after storage confirms and serializes con
     second = result.current.commit((w) => ({ ...w, history: [] }));
   });
   await waitFor(() => expect(mockRepository.save).toHaveBeenCalledTimes(1));
-  expect(result.current.value!.conditions).toHaveLength(10);
+  expect(result.current.value!.conditions).toHaveLength(1);
   await act(async () => {
     release();
     await first;
@@ -70,7 +74,7 @@ test("failed save retains state and next commit can succeed", async () => {
       result.current.commit((w) => ({ ...w, conditions: [] })),
     ).rejects.toThrow();
   });
-  expect(result.current.value!.conditions).toHaveLength(10);
+  expect(result.current.value!.conditions).toHaveLength(1);
   await act(async () => {
     await result.current.commit((w) => ({ ...w, conditions: [] }));
   });

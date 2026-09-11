@@ -17,27 +17,30 @@ export function ModelCard({
   complete: boolean;
 }) {
   return (
-    <Card style={{ gap: 12 }}>
+    <Card style={{ gap: 8, padding: 12 }}>
       {models.map((m) => (
-        <View key={m.id} style={{ gap: 8 }}>
-          <View style={{ flexDirection: "row", alignItems: "center", gap: 12 }}>
+        <View key={m.id} style={{ gap: 4 }}>
+          <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
             <Icon
-              name={m.id === "medpsy" ? "cpu" : "mic"}
+              name={
+                m.id === "medpsy" ? "cpu" : m.id === "whisper" ? "mic" : "volume-2"
+              }
+              size={16}
               color={theme.colors.primary}
             />
-            <View style={{ flex: 1 }}>
-              <Text weight="medium">{t(`preparation.${m.id}`)}</Text>
-              <Text muted size={12}>
-                {t(
-                  complete
-                    ? "preparation.complete"
-                    : busy
-                      ? "preparation.working"
-                      : "preparation.pending",
-                )}
-              </Text>
-            </View>
-            <Text weight="bold" style={{ color: theme.colors.primary }}>
+            <Text weight="medium" size={13} style={{ flex: 1 }}>
+              {t(`preparation.${m.id}`)}
+            </Text>
+            <Text muted size={11}>
+              {t(
+                complete
+                  ? "preparation.complete"
+                  : busy
+                    ? "preparation.working"
+                    : "preparation.pending",
+              )}
+            </Text>
+            <Text weight="bold" size={13} style={{ color: theme.colors.primary }}>
               {m.progress}%
             </Text>
           </View>

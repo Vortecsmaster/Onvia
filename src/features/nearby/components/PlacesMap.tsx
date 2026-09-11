@@ -1,18 +1,35 @@
-import React from "react";
-import { Platform, View } from "react-native";
-import { WebView } from "react-native-webview";
+import React, { useState } from "react";
+import { View } from "react-native";
+import {
+  Camera,
+  GeoJSONSource,
+  Layer,
+  Map,
+  Marker,
+} from "@maplibre/maplibre-react-native";
 import { Place } from "../../../domain/models";
-import { t } from "../../../locales";
+import { Text } from "../../../components/primitives/Text";
+import {
+  OPENFREEMAP_STYLE,
+  panamaBounds,
+  panamaStyle,
+} from "./mapStyle";
+import outline from "../../../data/panama-outline.json";
+import { theme } from "../../../theme";
+
 export function PlacesMap({
   items,
   center,
-  onDirections,
+  onSelect,
 }: {
   items: Place[];
   center: [number, number];
-  onDirections: (place: Place) => void;
+  onSelect: (place: Place) => void;
 }) {
-  const html = `<!doctype html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"><style>html,body,#map{height:100%;margin:0;background:#e7ece7} .leaflet-popup-content{font:14px/1.6 sans-serif}a{color:#1932db}.pin{background:#1932db;border:3px solid white;border-radius:50%;box-shadow:0 3px 10px #0003;color:white;text-align:center;font:bold 19px/30px sans-serif}.pharmacy{background:#167468}</style></head><body><div id="map"></div><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script>const map=L.map('map').setView(${JSON.stringify(center)},13);L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',maxZoom:19}).addTo(map);const items=${JSON.stringify(items).replace(/</g, "\\u003c")};items.forEach(p=>{const box=document.createElement('div');const title=document.createElement('strong');title.textContent=p.name;box.appendChild(title);box.appendChild(document.createElement('br'));const link=document.createElement('a');link.textContent=${JSON.stringify(t("nearby.destination"))};link.href='https://www.google.com/maps/dir/?api=1&destination='+p.latitude+','+p.longitude;link.target='_blank';link.onclick=function(e){if(window.ReactNativeWebView){e.preventDefault();window.ReactNativeWebView.postMessage(p.id)}};box.appendChild(link);L.marker([p.latitude,p.longitude],{icon:L.divIcon({className:'pin '+p.type,html:p.type==='hospital'?'+':'✚',iconSize:[30,30]})}).addTo(map).bindPopup(box)});L.circleMarker(${JSON.stringify(center)},{radius:7,color:'#fff',weight:3,fillColor:'#1932db',fillOpacity:1}).addTo(map).bindPopup(${JSON.stringify(t("nearby.center"))});</script></body></html>`;
+  const [style, setStyle] = useState<typeof OPENFREEMAP_STYLE | typeof panamaStyle>(
+    OPENFREEMAP_STYLE,
+  );
+  const offline = style !== OPENFREEMAP_STYLE;
   return (
     <View
       style={{
@@ -23,24 +40,61 @@ export function PlacesMap({
         borderColor: "#DDDCD5",
       }}
     >
-      {Platform.OS === "web" ? (
-        React.createElement("iframe", {
-          title: t("nearby.mapTitle"),
-          srcDoc: html,
-          style: { height: "100%", width: "100%", border: 0 },
-          sandbox: "allow-scripts allow-popups allow-popups-to-escape-sandbox",
-        })
-      ) : (
-        <WebView
-          originWhitelist={["*"]}
-          source={{ html }}
-          onMessage={(event) => {
-            const place = items.find((p) => p.id === event.nativeEvent.data);
-            if (place) onDirections(place);
-          }}
-          style={{ flex: 1 }}
+      <Map
+        mapStyle={style}
+        style={{ flex: 1 }}
+        onDidFailLoadingMap={() => setStyle(panamaStyle)}
+      >
+        <Camera
+          center={[center[1], center[0]]}
+          zoom={12}
+          minZoom={6}
+          maxZoom={18}
+          maxBounds={panamaBounds}
         />
-      )}
+        {offline ? (
+          <GeoJSONSource id="panama" data={outline as GeoJSON.GeoJSON}>
+            <Layer
+              id="land"
+              type="fill"
+              paint={{ "fill-color": "#cfdccb", "fill-opacity": 1 }}
+            />
+            <Layer
+              id="border"
+              type="line"
+              paint={{ "line-color": "#167468", "line-width": 1.4 }}
+            />
+          </GeoJSONSource>
+        ) : null}
+        {items.map((place) => (
+          <Marker
+            key={place.id}
+            id={place.id}
+            lngLat={[place.longitude, place.latitude]}
+            onPress={() => onSelect(place)}
+          >
+            <View
+              style={{
+                width: 28,
+                height: 28,
+                borderRadius: 14,
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor:
+                  place.type === "hospital"
+                    ? theme.colors.primary
+                    : theme.colors.teal,
+                borderWidth: 2,
+                borderColor: "#fff",
+              }}
+            >
+              <Text size={12} weight="bold" style={{ color: "#fff" }}>
+                {place.type === "hospital" ? "+" : "✚"}
+              </Text>
+            </View>
+          </Marker>
+        ))}
+      </Map>
     </View>
   );
 }

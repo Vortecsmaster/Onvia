@@ -28,9 +28,9 @@ export function Checkbox({
       disabled={disabled || readOnly}
       onPress={() => onChange(!value)}
       style={{
-        minHeight: 48,
+        minHeight: 40,
         flexDirection: "row",
-        gap: 12,
+        gap: 8,
         alignItems: "center",
         opacity: disabled ? 0.5 : 1,
       }}

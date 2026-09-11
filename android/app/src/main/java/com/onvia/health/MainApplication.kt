@@ -2,6 +2,7 @@ package com.onvia.health
 
 import android.app.Application
 import android.content.res.Configuration
+import android.util.Log
 
 import com.facebook.react.PackageList
 import com.facebook.react.ReactApplication
@@ -44,6 +45,11 @@ class MainApplication : Application(), ReactApplication {
       ReleaseLevel.valueOf(BuildConfig.REACT_NATIVE_RELEASE_LEVEL.uppercase())
     } catch (e: IllegalArgumentException) {
       ReleaseLevel.STABLE
+    }
+    try {
+      System.loadLibrary("bare-kit")
+    } catch (error: UnsatisfiedLinkError) {
+      Log.e("ONVIA", "libbare-kit.so failed to load", error)
     }
     loadReactNative(this)
     ApplicationLifecycleDispatcher.onApplicationCreate(this)

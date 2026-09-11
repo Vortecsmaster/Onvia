@@ -2,9 +2,10 @@ import { t } from "../../locales";
 import type {
   ConversationService,
   PreparationService,
+  SpeechService,
   TranscriptionService,
 } from "../../domain/contracts";
-import type { Message } from "../../domain/models";
+import type { Message, ModelId } from "../../domain/models";
 export function abortError() {
   const e = new Error("Aborted");
   e.name = "AbortError";
@@ -27,16 +28,19 @@ export function delay(ms: number, signal: AbortSignal): Promise<void> {
     signal.addEventListener("abort", cancel, { once: true });
   });
 }
-export const suggestedText = t("assistant.content.suggestion");
-// Simulated providers: no model download, microphone access, or medical inference.
+
+const ids: ModelId[] = ["medpsy", "whisper", "voice"];
+
 export const simulatedPreparation: PreparationService = {
   async prepare(onProgress, signal) {
     for (let step = 0; step <= 25; step++) {
-      await delay(150, signal);
-      onProgress([
-        { id: "medpsy", progress: Math.min(100, step * 4) },
-        { id: "whisper", progress: Math.min(100, step * 7) },
-      ]);
+      await delay(40, signal);
+      onProgress(
+        ids.map((id) => ({
+          id,
+          progress: Math.min(100, step * 4),
+        })),
+      );
     }
   },
 };
@@ -54,23 +58,33 @@ const initial: Message[] = [
 ];
 export const simulatedConversation: ConversationService = {
   initialMessages: () => initial.map((m) => ({ ...m })),
-  async reply(message, signal) {
-    await delay(850, signal);
+  async reply(message, context, signal) {
+    await delay(120, signal);
+    const named = context.profile?.name;
+    const meds = context.medications.map((m) => m.name).join(", ");
+    const extra = [named, meds].filter(Boolean).join(" · ");
+    const body = /medic|pastilla|dosis/i.test(message)
+      ? t("assistant.content.medications")
+      : /consulta|pregunta/i.test(message)
+        ? t("assistant.content.consultation")
+        : t("assistant.content.general");
     return {
       id: `reply-${Date.now()}`,
       role: "assistant",
-      text: /medic|pastilla|dosis/i.test(message)
-        ? t("assistant.content.medications")
-        : /consulta|pregunta/i.test(message)
-          ? t("assistant.content.consultation")
-          : t("assistant.content.general"),
+      text: extra ? `${body}\n\n${extra}` : body,
     };
   },
 };
+export const suggestedText = t("assistant.content.suggestion");
 export const simulatedTranscription: TranscriptionService = {
-  mode: "suggestion",
-  async transcribe(signal) {
-    await delay(200, signal);
-    return suggestedText;
+  mode: "microphone",
+  async transcribeAudio(_uri, signal) {
+    await delay(80, signal);
+    return t("assistant.content.suggestion");
+  },
+};
+export const simulatedSpeech: SpeechService = {
+  async speak(_text, signal) {
+    await delay(40, signal);
   },
 };

@@ -11,6 +11,7 @@ import {
   inRange,
   formatDate,
   localToday,
+  toLocalISODate,
 } from "../../domain/dateTime";
 import { appConfig } from "../../config/app";
 export interface DatePickerProps extends FieldProps {
@@ -20,6 +21,13 @@ export interface DatePickerProps extends FieldProps {
   max?: string;
   locale?: string;
 }
+
+function pickerDate(value: string) {
+  const iso = validDate(value) ? value : localToday();
+  const [year, month, day] = iso.split("-").map(Number);
+  return new Date(year, month - 1, day, 12, 0, 0);
+}
+
 export function DatePicker({
   value,
   onChange,
@@ -31,6 +39,23 @@ export function DatePicker({
   const [open, setOpen] = useState(false),
     [draft, setDraft] = useState("");
   const valid = validDate(draft) && inRange(draft, min, max);
+
+  const applyNative = (event: { type?: string }, date?: Date) => {
+    if (event.type === "dismissed") {
+      setOpen(false);
+      return;
+    }
+    if (!date) return;
+    const iso = toLocalISODate(date);
+    if (!iso || !inRange(iso, min, max)) return;
+    if (Platform.OS === "android") {
+      onChange(iso);
+      setOpen(false);
+      return;
+    }
+    setDraft(iso);
+  };
+
   return (
     <FormField {...field}>
       <Button
@@ -45,79 +70,82 @@ export function DatePicker({
           setOpen(true);
         }}
       />
-      <ModalSheet
-        visible={open}
-        title={field.label}
-        onClose={() => setOpen(false)}
-      >
-        {Platform.OS === "web" ? (
-          React.createElement("input", {
-            type: "date",
-            "aria-label": field.label,
-            value: draft,
-            min,
-            max,
-            onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-              setDraft(e.target.value),
-            style: {
-              height: 52,
-              padding: 12,
-              borderRadius: 12,
-              border: "1px solid #92928B",
-              fontSize: 16,
-              width: "100%",
-              boxSizing: "border-box",
-            },
-          })
-        ) : (
-          <NativePicker
-            testID="native-date-picker"
-            mode="date"
-            display={Platform.OS === "ios" ? "inline" : "default"}
-            value={
-              new Date((validDate(draft) ? draft : localToday()) + "T12:00:00")
-            }
-            minimumDate={min ? new Date(min + "T00:00:00") : undefined}
-            maximumDate={max ? new Date(max + "T23:59:59") : undefined}
-            onChange={(event, date) => {
-              if (event.type === "dismissed") {
-                setOpen(false);
-                return;
-              }
-              if (date)
-                setDraft(
-                  `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`,
-                );
-            }}
-          />
-        )}
-        {!valid && <Text accessibilityRole="alert">{t("date.invalid")}</Text>}
-        <Button
-          label={t("common.confirm")}
-          disabled={!valid}
-          onPress={() => {
-            onChange(draft);
-            setOpen(false);
-          }}
+      {Platform.OS === "android" && open ? (
+        <NativePicker
+          testID="native-date-picker"
+          mode="date"
+          display="default"
+          value={pickerDate(value || localToday())}
+          minimumDate={min ? pickerDate(min) : undefined}
+          maximumDate={max ? pickerDate(max) : undefined}
+          onChange={applyNative}
         />
-        {!field.required && (
+      ) : (
+        <ModalSheet
+          visible={open}
+          title={field.label}
+          onClose={() => setOpen(false)}
+        >
+          {Platform.OS === "web" ? (
+            React.createElement("input", {
+              type: "date",
+              "aria-label": field.label,
+              value: draft,
+              min,
+              max,
+              onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+                setDraft(e.target.value),
+              style: {
+                height: 52,
+                padding: 12,
+                borderRadius: 12,
+                border: "1px solid #92928B",
+                fontSize: 16,
+                width: "100%",
+                boxSizing: "border-box",
+              },
+            })
+          ) : (
+            <NativePicker
+              testID="native-date-picker"
+              mode="date"
+              display="inline"
+              value={pickerDate(draft)}
+              minimumDate={min ? pickerDate(min) : undefined}
+              maximumDate={max ? pickerDate(max) : undefined}
+              onChange={applyNative}
+            />
+          )}
+          {!valid && (
+            <Text accessibilityRole="alert">{t("date.invalid")}</Text>
+          )}
           <Button
-            label={t("common.clear")}
-            variant="ghost"
+            label={t("common.confirm")}
+            disabled={!valid}
             onPress={() => {
-              onChange(null);
+              onChange(draft);
               setOpen(false);
             }}
           />
-        )}
-        <View>
-          <Button
-            label={t("common.cancel")}
-            variant="secondary"
-            onPress={() => setOpen(false)}
-          />
-        </View>
-      </ModalSheet>
+          {!field.required && (
+            <Button
+              label={t("common.clear")}
+              variant="ghost"
+              onPress={() => {
+                onChange(null);
+                setOpen(false);
+              }}
+            />
+          )}
+          <View>
+            <Button
+              label={t("common.cancel")}
+              variant="secondary"
+              onPress={() => setOpen(false)}
+            />
+          </View>
+        </ModalSheet>
+      )}
     </FormField>
   );
 }

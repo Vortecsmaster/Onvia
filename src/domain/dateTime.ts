@@ -3,10 +3,19 @@ export const localToday = () => {
   const d = new Date();
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 };
+export function toLocalISODate(date: Date) {
+  const year = date.getFullYear();
+  if (year < 2000 || year > 2100) return "";
+  return `${year}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+}
 export function validDate(v: string) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(v)) return false;
-  const d = new Date(v + "T12:00:00Z");
-  return !Number.isNaN(d.getTime()) && d.toISOString().slice(0, 10) === v;
+  const [year, month, day] = v.split("-").map(Number);
+  if (year < 2000 || year > 2100) return false;
+  const d = new Date(year, month - 1, day);
+  return (
+    d.getFullYear() === year && d.getMonth() === month - 1 && d.getDate() === day
+  );
 }
 export function validTime(v: string) {
   return /^([01]\d|2[0-3]):[0-5]\d$/.test(v);

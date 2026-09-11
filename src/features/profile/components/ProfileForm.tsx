@@ -24,7 +24,7 @@ export function ProfileForm({
   disabled?: boolean;
 }) {
   return (
-    <View style={{ gap: 14 }}>
+    <View style={{ gap: 10 }}>
       <Input
         label={t("onboarding.name")}
         value={value.name}

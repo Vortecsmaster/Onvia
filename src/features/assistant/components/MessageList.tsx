@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { ScrollView, View } from "react-native";
 import { Text } from "../../../components/primitives/Text";
+import { IconButton } from "../../../components/primitives/IconButton";
 import { Message } from "../../../domain/models";
 import { appConfig } from "../../../config/app";
 import { theme } from "../../../theme";
@@ -8,9 +9,13 @@ import { t } from "../../../locales";
 export function MessageList({
   messages,
   busy,
+  onSpeak,
+  speaking,
 }: {
   messages: Message[];
   busy: boolean;
+  onSpeak: (text: string) => void;
+  speaking: boolean;
 }) {
   const ref = useRef<ScrollView>(null);
   return (
@@ -43,6 +48,16 @@ export function MessageList({
             }}
           >
             <Text size={14}>{m.text}</Text>
+            {m.role === "assistant" ? (
+              <View style={{ alignSelf: "flex-end" }}>
+                <IconButton
+                  label={t("assistant.speak")}
+                  icon="volume-2"
+                  disabled={speaking || busy}
+                  onPress={() => onSpeak(m.text)}
+                />
+              </View>
+            ) : null}
           </View>
         </View>
       ))}
