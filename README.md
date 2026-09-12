@@ -342,9 +342,9 @@ Para cambios importantes, abre primero un issue para discutir el enfoque.
 
 **ONVIA**
 
-- Jaime Villafane
-- Roberto J. Cerrud
-- Mario Rios
+- Jaime Villafane - jaimev1986@gmail.com
+- Roberto J. Cerrud - etereal05@gmail.com
+- Mario Rios - marweb@gmail.com
 
 ---
 
